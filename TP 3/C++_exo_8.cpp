@@ -13,16 +13,17 @@ void aficher(int *T, int taille)
   }
 }
 
-int trouve_indice(int *T, int taille, int x)
+int trouve_indice(int *T, int taille, int x, bool& trouve)
 {
-  int trouve=-1 ;
+  int trouve_indice=100 ;
 
+  if(taille==0) {return 0 ;}
   for(int i=0 ; i<taille ; i++)
   {
-    if (T[i]==x) {trouve=i ;}
+    if (T[i]==x) {trouve_indice=i ; trouve=true ; break ;}
   }
 
-  return trouve ;
+  return trouve_indice ;
 }
 
 void decale(int *T, int taille, int indice, int y)
@@ -37,15 +38,19 @@ void decale(int *T, int taille, int indice, int y)
 int main()
 {
   int Tab[N]={1,2,3,4,5,6,7,8,9,10}, x=0, indice=0, y=0 ;
+  bool trouve ;
 
   cout << "\n" << "Entrer une valeur pour x : " ; cin >> x ;
 
-  indice=trouve_indice(Tab,10,x) ;
+  indice=trouve_indice(Tab,10,x,trouve) ;
 
-  if (indice>0) {cout << "La valeur se trouve à l'indice : " << x << endl ;}
-  else {cout << "" << endl ;}
+  if (trouve)
+  {
+    cout << "La valeur se trouve dans le tableau à l'indice " << indice << endl ;
 
-  cout << "Entrer une valeur pour y : " ; cin >> y ;
+    cout << "Entrer une valeur pour y : " ; cin >> y ;
+  }
+  else {cout << "La valeur ne se trouve pas dans le tableau" << endl ;}
 
   decale(Tab,10,indice,y) ;
 
@@ -54,5 +59,4 @@ int main()
   aficher(Tab,10) ;
 
   return 0 ;
-
 }
